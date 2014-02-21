@@ -4,7 +4,6 @@
 !.gitignore
 
 # Ignore Play! working directory #
-db
 lib
 log
 modules
