@@ -1,6 +1,20 @@
 MAP-Stack
 =========
 
-A MongoDB-Bootstrap-AngularJS-Play stack with token authentication and OpenID
+## Presentation ##
 
-Initialized with the Typesafe activator "eventual" template. 
+In brief, it's a MongoDB-Bootstrap-AngularJS-Play stack with token authentication and OpenID
+
+## Installation ##
+
+### Seeds ###
+
+### Example ###
+The master branch is fully functional but contains no example (I hate cleaning example when I start a fresh project...).
+You can find a CRUD example (A simple blog) in the branch "example".
+
+
+
+
+
+
