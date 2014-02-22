@@ -15,6 +15,11 @@ You can find a CRUD example (A simple blog) in the branch "example".
 
 
 
+## TDD ##
 
+### Play! framework ###
+To allows TDD with Play! framework you have to ways:
+- in a terminal: `play ~test` or `play debug ~test` if you want to add a remote debug process
+- with Typesafe Activator
 
 
