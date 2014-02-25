@@ -23,3 +23,9 @@ To allows TDD with Play! framework you have to ways:
 - with Typesafe Activator
 
 
+## Licence ##
+
+- Play! framework: Apache V2
+- Specs2-EmbedMongo: MIT
+- play2-reactivemongo: Apache V2
+
