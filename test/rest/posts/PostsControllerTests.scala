@@ -32,5 +32,17 @@ class PostsControllerTests extends Specification {
       contentAsJson(result).as[JsArray].value.size must equalTo(5)
     }
 
+    "be able to retrieve a specific post" in withMongoDbAndData("posts","test/stubs/posts.json") { app =>
+    // When
+      val Some(result) = route(FakeRequest(GET, "/post/5143ddf3bcf1bf4ab37d9c6d"))
+
+      // Then
+      status(result) must equalTo(OK)
+      contentType(result) must beSome("application/json")
+      charset(result) must beSome("utf-8")
+
+      (contentAsJson(result).as[JsObject] \ "title").as[String] must equalTo("Blog post 1")
+    }
+
   }
 }

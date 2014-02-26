@@ -2,6 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 GET        /posts               rest.posts.PostsController.getPosts()
+GET        /post/:id            rest.posts.PostsController.getPost(id)
 
 
 # Map static resources from the /public folder to the /assets URL path

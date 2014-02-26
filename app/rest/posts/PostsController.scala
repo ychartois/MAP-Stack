@@ -2,13 +2,14 @@ package rest.posts
 
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.modules.reactivemongo.json.BSONFormats._
 
-import play.api._
 import play.api.mvc._
 import play.modules.reactivemongo.MongoController
 import scala.concurrent.Future
 import play.api.libs.json._
-import play.modules.reactivemongo.json.collection.JSONCollection
+import play.modules.reactivemongo.json.collection.{JSONQueryBuilder, JSONCollection}
+import reactivemongo.bson.{BSONDocument, BSONObjectID}
 
 object PostsController extends Controller with MongoController {
 
@@ -40,6 +41,26 @@ object PostsController extends Controller with MongoController {
 
     postsArray.map {  posts =>
       Ok( posts.apply(0) )
+    }
+  }
+
+  /**
+   * Get a specific post
+   *
+   * @return a json array with the post information
+   */
+  def getPost(id: String): Action[AnyContent] = Action.async {
+
+    val query = BSONDocument( "_id" -> BSONObjectID(id) );
+
+    // We want all the posts
+    val cursor = posts.find( query ).cursor[JsObject]
+
+    // gather all the JsObjects in a list
+    val postsList: Future[List[JsObject]] = cursor.collect[List]()
+
+    postsList.map {  post =>
+      Ok( post.head )
     }
   }
 
