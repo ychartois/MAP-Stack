@@ -8,7 +8,7 @@ import play.api.mvc._
 import play.modules.reactivemongo.MongoController
 import scala.concurrent.Future
 import play.api.libs.json._
-import play.modules.reactivemongo.json.collection.{JSONQueryBuilder, JSONCollection}
+import play.modules.reactivemongo.json.collection.JSONCollection
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
 
 object PostsController extends Controller with MongoController {
@@ -39,6 +39,7 @@ object PostsController extends Controller with MongoController {
       Json.arr(posts)
     }
 
+    // the list have only one element
     postsArray.map {  posts =>
       Ok( posts.apply(0) )
     }
@@ -51,14 +52,14 @@ object PostsController extends Controller with MongoController {
    */
   def getPost(id: String): Action[AnyContent] = Action.async {
 
-    val query = BSONDocument( "_id" -> BSONObjectID(id) );
-
-    // We want all the posts
+    // Get the post
+    val query = BSONDocument( "_id" -> BSONObjectID(id) )
     val cursor = posts.find( query ).cursor[JsObject]
 
     // gather all the JsObjects in a list
     val postsList: Future[List[JsObject]] = cursor.collect[List]()
 
+    // the list have only one element
     postsList.map {  post =>
       Ok( post.head )
     }
