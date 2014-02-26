@@ -51,7 +51,7 @@ object MongoDBTestUtils {
         val postsStub: JsArray = Json.parse(stub.mkString).as[JsArray]
 
         postsStub.validate[Seq[JsValue]].get.foreach( el =>
-          posts.save(el).value //because we don't want to do it asynchronously
+          Await.ready( posts.save(el), 2 seconds ) //because we don't want to do it asynchronously
         )
 
         block(app)
